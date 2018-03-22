@@ -15,13 +15,20 @@
     <!-- other styles -->
     <link rel="stylesheet" href="./assets/css/style.css">
 </head>
-<body>
+<body class="container-fluid">
 
-    <div></div>
-
-    <form action=""></form>
-
-    <div></div>
+    <div id="buttons" class="row"></div>
+    <div class="row">
+        <div class="col-xs-6 col-sm-7 col-md-8"></div>
+        <div class="col-xs-6 col-sm-5 col-md-4">
+            <form id="makeMoreButtonsForm">
+                <label for="newCharacter">Add a Marvel Character</label><br>
+                <input type="text" id="newCharacter"><br>
+                <button id="submitButton">Submit</button>
+            </form>
+        </div>
+    </div>
+    <div id="gifs" class="row"></div>
 
     <!-- jQuery Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
