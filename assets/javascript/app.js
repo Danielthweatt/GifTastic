@@ -6,19 +6,23 @@ let topicArray = ['Captain America', 'Iron Man', 'Spider-Man', 'Thor', 'Hulk',
 'Black Widow'];
 let character;
 let newTopic;
+let buttons = $('#buttons');
 let textInput = $('#newCharacter');
+let gifStill;
+let gif;
+let gifrating;
 let gifs = $('#gifs');
 
 // function to create buttons
 
 function makeButtons() {
-  $('#buttons').empty();
+  buttons.empty();
   for (let i = 0; i < topicArray.length; i++) {
     let button = $('<button>');
     button.addClass('character btn btn-info col-xs-3');
     button.attr('data-name', topicArray[i]);
     button.text(topicArray[i]);
-    $('#buttons').append(button);
+    buttons.append(button);
   };
 };
 
@@ -39,19 +43,21 @@ $(document).on("click", ".character", function() {
   let queryURL = 'https://api.giphy.com/v1/gifs/search?q=' + character + '&limit=10&api_key=JxYv2NDJkk8wyy4ZZsHzJFNu1UMdIZr8';
   console.log(queryURL);
   gifs.empty();
-
-$.ajax({
+  $.ajax({
     url: queryURL,
     method: "GET"
   }).then(function(response) {
-      let gifStill;
-      let gif;
       console.log(response);
       for (let i = 0; i < response.data.length; i++) {
+        console.log(i);
         gifStill = response.data[i].images.original_still.url;
         gif = response.data[i].images.original.url;
         gifrating = response.data[i].rating;
-        gifs.append(`<img src="${gifStill}">`);
+        let imageContainer = $('<div>');
+        imageContainer.addClass('col-xs-3');
+        imageContainer.attr('data-name', i);
+        imageContainer.append(`<img src="${gifStill}" class="img-responsive">`, gifrating);
+        gifs.append(imageContainer);
       };
   });
 
