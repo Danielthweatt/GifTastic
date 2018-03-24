@@ -6,12 +6,13 @@ let topicArray = ['Captain America', 'Iron Man', 'Spider-Man', 'Thor', 'Hulk',
 'Black Widow'];
 let character;
 let newTopic;
-let buttons = $('#buttons');
-let textInput = $('#newCharacter');
+const buttons = $('#buttons');
+const textInput = $('#newCharacter');
 let gifStill;
 let gif;
 let gifrating;
-let gifs = $('#gifs');
+let gifUrlArray = [];
+const gifs = $('#gifs');
 
 // function to create buttons
 
@@ -53,6 +54,7 @@ $(document).on("click", ".character", function() {
         gifStill = response.data[i].images.original_still.url;
         gif = response.data[i].images.original.url;
         gifrating = response.data[i].rating;
+        gifUrlArray[i] = [gifStill, gif];
         let imageContainer = $('<div>');
         imageContainer.addClass('col-xs-3');
         imageContainer.attr('data-name', i);
