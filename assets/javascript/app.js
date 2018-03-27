@@ -14,7 +14,6 @@ let gifrating;
 let gifUrlArray = [];
 const gifs = $('#gifs');
 let animationUrlIndex;
-let src;
 
 // function to create buttons
 
@@ -22,7 +21,7 @@ function makeButtons() {
   buttons.empty();
   for (let i = 0; i < topicArray.length; i++) {
     let button = $('<button>');
-    button.addClass('character btn btn-info col-xs-3');
+    button.addClass('character btn btn-info');
     button.attr('data-name', topicArray[i]);
     button.text(topicArray[i]);
     buttons.append(button);
@@ -49,14 +48,15 @@ $(document).on('click', '.character', function() {
     url: queryURL,
     method: "GET"
   }).then(function(response) {
+    console.log(response);
       for (let i = 0; i < response.data.length; i++) {
-        gifStill = response.data[i].images.original_still.url;
-        gif = response.data[i].images.original.url;
+        gifStill = response.data[i].images.fixed_height_small_still.url;
+        gif = response.data[i].images.fixed_height_small.url;
         gifrating = response.data[i].rating;
         gifUrlArray[i] = [gifStill, gif];
         let imageContainer = $('<div>');
-        imageContainer.addClass('col-xs-3');
-        imageContainer.append(`<img src="${gifStill}" class="img-responsive gif" data-name="${i}">`, gifrating);
+        imageContainer.addClass('col-sm-4 col-md-3');
+        imageContainer.append(`<img src="${gifStill}" class="gif" data-name="${i}">`, `<p>Rating: ${gifrating}</p>`);
         gifs.append(imageContainer);
       };
   });
@@ -64,6 +64,7 @@ $(document).on('click', '.character', function() {
 });
 
 // function to animate GIFS
+
 $(document).on('click', '.gif', function() {
     animationUrlIndex = $(this).attr('data-name');
   if ($(this).attr('src') === gifUrlArray[animationUrlIndex][0]) {
